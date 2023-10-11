@@ -52,9 +52,9 @@ INSTALLED_APPS = [
 
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'ddpgac24e',
-    'API_KEY': '674428488459259',
-    'API_SECRET': 'qnyLQeW8nx3sblxhsnH1idFMY6s',
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET'),
 }
 
 
@@ -146,7 +146,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-CLOUDINARY_URL = 'cloudinary://674428488459259:qnyLQeW8nx3sblxhsnH1idFMY6s@ddpgac24e'
+CLOUDINARY_URL = config('CLOUDINARY_URL')
 
 
 # Default primary key field type

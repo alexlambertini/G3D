@@ -22,6 +22,11 @@ ALLOWED_HOSTS=127.0.0.1,.localhost,0.0.0.0
 #POSTGRES_PASSWORD=%s
 #DB_HOST=localhost
 
+CLOUD_NAME=
+API_KEY=
+API_SECRET=
+CLOUDINARY_URL=
+
 #DEFAULT_FROM_EMAIL=
 #EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
 #EMAIL_HOST=localhost
