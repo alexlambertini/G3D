@@ -62,16 +62,19 @@ def enviar_mensagem(request):
 
 def load_more_images(request):
     page = request.GET.get('page', 1)  # Página padrão é 1
-    items_per_page = 4  # Número de imagens por página
+    items_per_page = 5  # Número de imagens por página
 
     start_index = (int(page) - 1) * items_per_page
     end_index = start_index + items_per_page
 
     next_images = GalleryImage.objects.all()[start_index:end_index]
+    print(next_images)
 
     images_data = [{"image_url": image.image.url, "title": image.titulo, "description": image.descricao} for image in next_images]
+
     return JsonResponse(images_data, safe=False)
 
+    
 
 # def load_more_images(request):
 #     page = request.GET.get('page', 1)  

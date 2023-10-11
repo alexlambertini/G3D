@@ -1,34 +1,36 @@
 {% block folio %}
-
+{% if gallery_images|length >= 1 %}
 <section id="portfolio">
     <div class="port-grid">
 
         <div>
-
-            <div class="grid-col-3" x-data="{ images: [], page: 1, showLoadButton: true }" x-init="loadImages">
-
+            
+            <div id="teste" class="grid-col-3" x-data="{ images: [], page: 1, showLoadButton: true }" x-init="loadImages">
                 <div class="title-work">
                     <h2>Our <i>Work</i></h2>
                 </div>
             
-                <template  x-for="image in images.slice(0, 4)" :key="image.image_url">
-                    <a class="link-port" :href="image.image_url"  :data-title="image.title" :data-description="image.description">
+                <template x-for="image in images.slice(0, 5)" :key="image.image_url">
+                    <div class="link-port link" :data-title="image.title" :data-description="image.description"  @click="openLightbox(image)">
                         <img :src="image.image_url" :alt="image.title">
-                    </a>
+                    </div>
                 </template>
-                
-                <template x-for="image in images.slice(3)" :key="image.image_url">
-                    <a class="link-port" :href="image.image_url"  :data-title="image.title" :data-description="image.description">
-                        <img :src="image.image_url" :alt="image.title">
-                    </a>
-                </template>
-                
-                <button class="button-more span-3 js-load-more" @click="loadImages" x-show="showLoadButton">Load More</button>
-            </div>
             
+                <template x-for="image in images.slice(5)" :key="image.image_url">
+                    <div class="link-port link" :data-title="image.title" :data-description="image.description" @click="openLightbox(image)">
+                        <img :src="image.image_url" :alt="image.title">
+                    </div>
+                </template>
+            
+                {% if gallery_images|length > 5 %}
+                    <button class="button-more span-3 js-load-more" @click="loadImages" x-show="showLoadButton">Load More</button>
+                {% endif %}
+            </div>
+
 
             <script>
                 function loadImages() {
+
                     const url = `{% url 'app:load_more_images' %}?page=${this.page}`;
             
                     fetch(url)
@@ -46,11 +48,38 @@
                         .catch(error => console.error(error));
                 }
 
-
+                const openLightbox = (image) => {
+                    console.log(image)
+                    
+                    const lightbox = GLightbox({
+              
+                        elements: [
+                            {
+                                href: image.image_url,
+                                title: image.title,
+                                description: image.description,
+                            }
+                            
+                        ],
+                        settings: {
+                            touchNavigation: true, // Habilite a navegação por toque
+                            loop: true, // Permita que a galeria seja percorrida em um loop
+                            keyboard: true,
+                            controls: {
+                                prev: true, // Exibir botão de voltar
+                                next: true, // Exibir botão de avançar
+                            }
+                        }
+                    });
+                    
+                    lightbox.open();
+                };
             </script>
 
             
 
         </div>
+
 </section>
+{% endif %}
 {% endblock %}

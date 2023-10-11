@@ -1,7 +1,9 @@
+import os
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-import os
+from cloudinary_storage.storage import MediaCloudinaryStorage
+from cloudinary.models import CloudinaryField
 
 
 # Itens do Menu
@@ -18,10 +20,13 @@ class MenuItem(models.Model):
 
 # Vídeo de background do banner
 class BannerVideo(models.Model):
-    video_file = models.FileField(upload_to='videos/')
-    
+    video_file = CloudinaryField(
+        resource_type='video',
+        folder='media/videos/'
+    )
+
     def __str__(self):
-        return self.video_file.name
+        return "video"
 
     class Meta:
         verbose_name_plural = "Video Banner"
@@ -71,7 +76,7 @@ class Item(models.Model):
 
 class Service(models.Model):
     titulo = models.CharField(max_length=100)
-    itens = models.ManyToManyField(Item, null=True, blank=True)
+    itens = models.ManyToManyField(Item, blank=True)
     image = models.ImageField(upload_to='service/', verbose_name='Capa do vídeo')
     youtube_url = models.URLField()
 
