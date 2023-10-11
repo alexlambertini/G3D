@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Alexandre Lambertini">
+	<meta name="keywords" content="Archviz, Arquitetura, Architecture G3D, Maquete, Eletronica" />
+    
+    <title>G3D Maquete Eletrônica</title>
+
+    <link rel="stylesheet" href="{% static 'css/menu-mobile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/glightbox.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <script src="{% static 'scripts/whatsapp.js' %}" defer></script>
+    <script src="{% static 'scripts/hamburguer-component.js' %}" defer></script>
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+    {% comment %} <script src="https://unpkg.com/htmx.org@1.9.6"></script> {% endcomment %}
+
+    
+</head>
+<body>
+
+    <header id="start">
+        <div id="nav" class="nav-bar">
+            <a href="#start" class="logo">G3D</a>
+            <nav id="menu" class="menu">
+                <div id="sidebar">
+                    <ul>
+                        {% for item in menu_items %}
+                            <li class="menu-item btn-underline-action"><a href="{{ item.url }}">{{ item.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id="hamburguer">
+                    <hamburguer-menu></hamburguer-menu>
+                </div>
+            </nav>
+        </div>
+
+        <div class="description-banner">
+            <video src="{{ banner_video.video_file.url }}" autoplay loop muted></video>
+            <div class="banner__inf__box container">
+                <div>
+                    <div class="big-logo">
+                        <img src="static/images/logo-crop-white.png" alt="G3D">
+                    </div>
+                    <p>WE LOVE ARCHITECTURE <br> <i>&</i>  INTERIOR DESIGN</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    
+    <script src="{% static 'scripts/glightbox.js' %}"></script>
+    <script src="{% static 'scripts/scripts.js' %}"></script>
+
+    <script>
+        const initializeLightbox = () => {
+            const lightbox = GLightbox({
+                selector: '.link-port',
+                touchNavigation: true,
+                loop: true
+            });
+        };
+    
+        // Aguarde o carregamento completo da página
+        document.addEventListener("DOMContentLoaded", function() {
+            initializeLightbox();
+        });
+    </script>
+
+</body>
+</html>

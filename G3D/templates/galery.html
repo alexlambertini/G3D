@@ -1,0 +1,56 @@
+{% block folio %}
+
+<section id="portfolio">
+    <div class="port-grid">
+
+        <div>
+
+            <div class="grid-col-3" x-data="{ images: [], page: 1, showLoadButton: true }" x-init="loadImages">
+
+                <div class="title-work">
+                    <h2>Our <i>Work</i></h2>
+                </div>
+            
+                <template  x-for="image in images.slice(0, 4)" :key="image.image_url">
+                    <a class="link-port" :href="image.image_url"  :data-title="image.title" :data-description="image.description">
+                        <img :src="image.image_url" :alt="image.title">
+                    </a>
+                </template>
+                
+                <template x-for="image in images.slice(3)" :key="image.image_url">
+                    <a class="link-port" :href="image.image_url"  :data-title="image.title" :data-description="image.description">
+                        <img :src="image.image_url" :alt="image.title">
+                    </a>
+                </template>
+                
+                <button class="button-more span-3 js-load-more" @click="loadImages" x-show="showLoadButton">Load More</button>
+            </div>
+            
+
+            <script>
+                function loadImages() {
+                    const url = `{% url 'app:load_more_images' %}?page=${this.page}`;
+            
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Atualizar a lista de imagens
+                            this.images.push(...data);
+                            this.page++; // Avançar para a próxima página
+            
+                            // Verificar se não há mais imagens para carregar
+                            if (data.length === 0) {
+                                this.showLoadButton = false; // Ocultar o botão
+                            }
+                        })
+                        .catch(error => console.error(error));
+                }
+
+
+            </script>
+
+            
+
+        </div>
+</section>
+{% endblock %}

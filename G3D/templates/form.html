@@ -1,0 +1,24 @@
+{% block form %}
+<form class="formulario" method="post" action="{% url 'app:enviar_mensagem' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="half-line">
+        {{ email_form.nome.label_tag }}
+        {{ email_form.nome }}
+    </div>
+
+    <div class="half-line">
+        {{ email_form.email.label_tag }}
+        {{ email_form.email }}
+    </div>
+
+    <div class="full-line">
+        {{ email_form.mensagem.label_tag }}
+        {{ email_form.mensagem }}
+    </div>
+
+    <div class="full-line send">
+        <button class="action-style" type="submit">Enviar Mensagem</button>
+    </div>
+</form>
+{% endblock %}

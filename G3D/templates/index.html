@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+
+{% block content %}
+<main class="container">
+
+    <section id="about">
+        <div class="about__grid">
+            {% for description in about %}
+                <div class="about">
+                    {% with title_parts=description.titulo|split_string:" " %}
+                        <h1 class="title-style">{{ title_parts.0 }}<i>{{ title_parts.1 }}</i><strong>{{ title_parts.2 }} {{ title_parts.3 }} {{ title_parts.4 }} {{ title_parts.5 }}</strong></h1>
+                    {% endwith %}
+                    <p>{{description.texto}}</p>
+                </div>
+                <div>
+                    <img src="{{description.image.url}}" alt="">
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+
+    {% block folio %}
+        {% include 'galery.html' %}
+    {% endblock %}
+
+
+    <section id="services">
+
+        <div  class="grid-services">
+            <div class="service__image">
+                {% for services in service %}
+                    <a href="{{services.youtube_url}}" class="link-port">
+                        <svg version="1.1" id="play" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" height="100px" width="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                            <path class="stroke-solid" d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7 C97.3,23.7,75.7,2.3,49.9,2.5"/>
+                            <path class="icon" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z"/>
+                        </svg>
+                    </a>
+                    <img src="{{services.image.url}}" alt="">
+                {% endfor %}
+            </div>
+
+            <div>
+                {% for services in service %}
+                    {% with title_parts=services.titulo|split_string:" " %}
+                        <h1 class="title-style">{{ title_parts.0 }}<i>{{ title_parts.1 }}</i><strong>{{ title_parts.2 }} {{ title_parts.3 }} {{ title_parts.4 }} {{ title_parts.5 }}</strong></h1>
+                    {% endwith %}
+                {% endfor %}
+                <ol>
+                    {% for items in item_services %}
+                        <li>{{items.nome }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer id="contact" class="container">
+    <div class="footer-box">
+
+        <div class="footer__info">
+            {% for contact in footer_items %}
+                {% with title_parts=contact.titulo|split_string:" " %}
+                    <h1 class="title-style">{{ title_parts.0 }}<i>{{ title_parts.1 }}</i><strong>{{ title_parts.2 }} {{ title_parts.3 }} {{ title_parts.4 }} {{ title_parts.5 }}</strong></h1>
+                {% endwith %}
+            {% endfor %}
+
+
+            <ul class="footer__contact__info">
+                {% for contact in footer_items %}
+                    <li>
+                        <img src="{% static 'images/whats-icon.png' %}" alt="phone">
+                        <div id="link-whatsapp" data-telefone="{{ contact.telefone }}"></div>
+                    </li>
+                    
+                    <li>
+                        <img src="{% static 'images/mail-icon.png' %}" alt="e-mail">
+                        <a href="mailto:gales3d@gmail.com?subject=Contato pelo site">{{ contact.email }}</a>
+                    </li>
+        
+                    <li>
+                        <img src="{% static 'images/Instagram-Icon.png' %}" alt="instrgram">
+                        <a href="{{ contact.instagram }}" target="_blank">@g3dmaqueteeletronica</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% block form %}
+            {% include 'form.html' %}
+        {% endblock %}
+
+    </div>
+
+</footer>
+{% endblock %}
