@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv() )
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
 
 
 # Application definition
@@ -42,9 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
+    # other apps
+    'django_extensions',
     'cloudinary_storage',
     'cloudinary',
+    # my apps
+    'app',
 ]
 
 
@@ -53,8 +56,6 @@ CLOUDINARY_STORAGE = {
     'API_KEY': '674428488459259',
     'API_SECRET': 'qnyLQeW8nx3sblxhsnH1idFMY6s',
 }
-
-
 
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'core.urls'
 
 # Diretório de templates
-TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 
 TEMPLATES = [
     {
@@ -154,16 +155,10 @@ CLOUDINARY_URL = 'cloudinary://674428488459259:qnyLQeW8nx3sblxhsnH1idFMY6s@ddpga
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-#email-config
+# email-config
 EMAIL_BACKEND = config('EMAIL_BACKEND')
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-
-
-
-
-
-
