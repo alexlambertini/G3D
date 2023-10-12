@@ -13,7 +13,7 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return f"{self.name} {self.url}"
-    
+
     class Meta:
         verbose_name_plural = "Menu"
 
@@ -44,7 +44,7 @@ class About(models.Model):
 
     def __str__(self):
         return self.titulo
-    
+
     class Meta:
         verbose_name_plural = "About"
 
@@ -85,7 +85,7 @@ class Service(models.Model):
 
     def __str__(self):
         return self.titulo
-        #return "Serviço com {} itens".format(self.itens.count())
+        # return "Serviço com {} itens".format(self.itens.count())
 
 
 # Contato
@@ -97,7 +97,7 @@ class FooterItem(models.Model):
 
     def __str__(self):
         return f"Dados do Footer"
-    
+
     class Meta:
         verbose_name_plural = 'Contact area'
 
@@ -118,4 +118,4 @@ def delete_video_file(sender, instance, **kwargs):
     # Exclui o arquivo de mídia associado quando o objeto VideoFile é excluído
     if instance.video_file:
         if os.path.isfile(instance.video_file.path):
-            os.remove(instance.video_file.path)    
+            os.remove(instance.video_file.path)
