@@ -18,7 +18,6 @@
     <script src="{% static 'scripts/hamburguer-component.js' %}" defer></script>
 
     <script src="//unpkg.com/alpinejs" defer></script>
-    {% comment %} <script src="https://unpkg.com/htmx.org@1.9.6"></script> {% endcomment %}
 
     
 </head>
@@ -42,7 +41,7 @@
         </div>
 
         <div class="description-banner">
-            <video src="{{ banner_video.video_file.url }}" autoplay loop muted></video>
+            <video src="{{ banner_video.video_file.url }}" data-cld-cf="cloud_name=cloud_name" autoplay loop muted></video>
             <div class="banner__inf__box container">
                 <div>
                     <div class="big-logo">

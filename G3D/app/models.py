@@ -2,7 +2,6 @@ import os
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-from cloudinary_storage.storage import MediaCloudinaryStorage
 from cloudinary.models import CloudinaryField
 
 
@@ -16,6 +15,7 @@ class MenuItem(models.Model):
     
     class Meta:
         verbose_name_plural = "Menu"
+
 
 
 # Vídeo de background do banner
@@ -36,6 +36,7 @@ class VideoFile(models.Model):
     banner_video = models.OneToOneField(BannerVideo, on_delete=models.CASCADE)
 
 
+
 # Texto Sobre
 class About(models.Model):
     titulo = models.CharField(max_length=100, blank=False, unique=True)
@@ -49,18 +50,29 @@ class About(models.Model):
         verbose_name_plural = "About"
 
 
+
 # Cadastro de imagem da Galeria
 class GalleryImage(models.Model):
     titulo = models.CharField(max_length=100)
     descricao = models.TextField()
-    image = models.ImageField(upload_to='gallery/')
-    image_cropped = models.ImageField(upload_to='gallery/cropped/', blank=True, null=True)
+    image = CloudinaryField('image', folder='media/gallery')
 
     def __str__(self):
         return f"{self.titulo} {self.descricao}"
 
     class Meta:
         verbose_name_plural = "Portfolio"
+
+    @property
+    def get_500x500_crop(self):
+        transformed_image = self.image.build_url(
+            transformation=[
+                {'width': 500, 'height': 500, 'crop': "fill"},
+                {'fetch_format': "auto"}
+            ]
+        )
+        return transformed_image
+
 
 
 # Cadastro de Serviços
@@ -85,7 +97,7 @@ class Service(models.Model):
 
     def __str__(self):
         return self.titulo
-        #return "Serviço com {} itens".format(self.itens.count())
+
 
 
 # Contato
@@ -111,6 +123,7 @@ class Contact(models.Model):
 
     class Meta:
         verbose_name_plural = 'Emails received'
+
 
 
 @receiver(pre_delete, sender=VideoFile)
