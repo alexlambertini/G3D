@@ -1,5 +1,6 @@
 # Ignorar a pasta da virtual environment
 venv/
-
+.idea
+db.sqlite3
 # Ignorar o arquivo .env
 .env
