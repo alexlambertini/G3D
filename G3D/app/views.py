@@ -45,7 +45,7 @@ def enviar_mensagem(request):
             contato.save()
 
             # Enviar e-mail para o cliente
-            send_mail('Assunto do E-mail', mensagem, 'seu_email@gmail.com', [email], fail_silently=False)
+            send_mail('Assunto do E-mail', mensagem, 'alexandre.lambertini@gmail.com', [email], fail_silently=False)
         else:
             print(form.errors)
             return redirect('index.html')  # Redirecione para uma página de sucesso após enviar o e-mail

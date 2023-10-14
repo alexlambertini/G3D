@@ -796,6 +796,9 @@ textarea {
         gap: 1rem;
         margin: auto;
     }
+    .description-banner {
+        height: 90%;
+    }
 
     .big-logo {
         width: 50%;
@@ -820,6 +823,15 @@ textarea {
 
     .grid-services li:last-child {
         line-height: 2rem;
+    }
+
+    .half-line {
+        width: 100%;
+    }
+
+    .grid-col-3 {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, auto);
     }
 }
 

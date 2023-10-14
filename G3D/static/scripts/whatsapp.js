@@ -1,9 +1,7 @@
 function verificarNumeroDeTelefone(numeroTelefone) {
-    // Verifique se o número começa com "55" (código de país do Brasil)
     if (numeroTelefone.startsWith("55")) {
         return numeroTelefone;
     } else {
-        // Adicione "55" como código de país
         return "55" + numeroTelefone;
     }
 }
